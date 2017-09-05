@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "677335051120",
+    "firebase_url": "https://ubuntus2-8a1cd.firebaseio.com",
+    "project_id": "ubuntus2-8a1cd",
+    "storage_bucket": "ubuntus2-8a1cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677335051120:android:c9a8f14bdf741892",
+        "android_client_info": {
+          "package_name": "com.kesteli.filip.ubuntus2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677335051120-i0h0dcahfkm1l5ovnd8sn7qc3ef50q4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kesteli.filip.ubuntus2",
+            "certificate_hash": "f8bc37e66d01e828e631ca9770f0b6d4b425da54"
+          }
+        },
+        {
+          "client_id": "677335051120-4lmltg40patt1ngh09k1povaf295qq90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVC2DnbwiBt2eRtmqHG1NuL4985VwRK_c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677335051120-4lmltg40patt1ngh09k1povaf295qq90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
