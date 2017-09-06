@@ -21,6 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".vrste_posla.VrstePoslaActivity"
+            android:label="@string/title_activity_vrste_posla"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".vrste_posla.poslovi.PosloviActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".login.ResetPasswordActivity" />
+        <activity android:name=".login.SignUpActivity"></activity>
     </application>
 
 </manifest>
