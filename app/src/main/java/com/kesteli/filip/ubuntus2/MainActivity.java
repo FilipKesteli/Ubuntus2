@@ -79,12 +79,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initViews() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbarPoslovi);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        viewPager = (ViewPager) findViewById(R.id.viewpagerPoslovi);
+        tabLayout = (TabLayout) findViewById(R.id.tabsPoslovi);
     }
 
     private void setupViewPager() {
