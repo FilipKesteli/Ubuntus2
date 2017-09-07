@@ -8,4 +8,10 @@
     tools:context="com.kesteli.filip.ubuntus2.vrste_posla.VrstePoslaActivity"
     tools:showIn="@layout/app_bar_vrste_posla">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_vrste_posla"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 </android.support.constraint.ConstraintLayout>

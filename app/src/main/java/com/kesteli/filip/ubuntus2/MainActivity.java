@@ -1,16 +1,17 @@
 package com.kesteli.filip.ubuntus2;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,17 +21,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.kesteli.filip.ubuntus2.biznis_plan.DonacijaActivity;
+import com.kesteli.filip.ubuntus2.biznis_plan.QuantiActivity;
+import com.kesteli.filip.ubuntus2.clanovi.Clan;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.FavoritiActivity;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.PonudeActivity;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.PotraznjeActivity;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.PovijestActivity;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.PrihvacenoActivity;
+import com.kesteli.filip.ubuntus2.login.SignUpActivity;
+import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.PosloviActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +65,10 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private NavigationView navigationView;
 
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,34 +79,12 @@ public class MainActivity extends AppCompatActivity
         setupToolbar();
         setupHamburgerIcon();
         setupNavigationView();
-        setupRecyclerView();
+
+        setupViewPager();
+        setupTabLayout();
+        setupFragments();
+
         setupListeners();
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void setupListeners() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
-
-    private void initViews() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
     }
 
     private void setupFirebase() {
@@ -92,6 +93,67 @@ public class MainActivity extends AppCompatActivity
         auth = FirebaseAuth.getInstance();
         //get current user
         user = FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    private void initViews() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+    }
+
+    private void setupViewPager() {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+    }
+
+    private void setupTabLayout() {
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setupFragments() {
+        adapter.addFrag(new UbuntusFragment(), "Ubuntus");
+        adapter.addFrag(new ProfilFragment(), "Profil");
+        adapter.addFrag(new ProfilFragment(), "Ponude");
+        adapter.addFrag(new ProfilFragment(), "Prihvaćeno");
+        adapter.addFrag(new ProfilFragment(), "Potražnje");
+        viewPager.setAdapter(adapter);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_face_white_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_dashboard_white_24dp);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_check_circle_white_24dp);
+        tabLayout.getTabAt(4).setIcon(R.drawable.ic_loop_white_24dp);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
     private void setupToolbar() {
@@ -109,6 +171,17 @@ public class MainActivity extends AppCompatActivity
 
     private void setupNavigationView() {
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setupListeners() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     @Override
@@ -136,9 +209,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_povijest:
+                return true;
         }
+
+        /*if (id == R.id.action_settings) {
+            return true;
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -148,124 +226,41 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Intent intent;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_prihvaceno) {
+            intent = new Intent(MainActivity.this, PrihvacenoActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_ponude) {
+            intent = new Intent(MainActivity.this, PonudeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_potraznje) {
+            intent = new Intent(MainActivity.this, PotraznjeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_favoriti) {
+            intent = new Intent(MainActivity.this, FavoritiActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_povijest) {
+            intent = new Intent(MainActivity.this, PovijestActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_quanti) {
+            intent = new Intent(MainActivity.this, QuantiActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_donacija) {
+            intent = new Intent(MainActivity.this, DonacijaActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
-
-    private GridLayoutManager gridLayoutManager; //kartice u mreži
-
-    private void setupRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_main);
-        gridLayoutManager = new GridLayoutManager(MainActivity.this, 2);
-        layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new RecyclerAdapter();
-        recyclerView.setAdapter(adapter);
-    }
-
-
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-
-    public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.card_main_vrsta_posla, parent, false);
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-//            holder.znanostTitle.setText(titles[position]);
-            holder.znanostTitle.setText(clanciHelperPOJO.getIdejeTitles()[position]);
-//            holder.znanostImage.setImageResource(images[position]);
-            holder.znanostImage.setImageResource(clanciHelperPOJO.getIdejeImages()[position]);
-            holder.cardView.setCardBackgroundColor(clanciHelperPOJO.getIdejeColors()[position]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return clanciHelperPOJO.getIdejeTitles().length;
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-
-            public ImageView znanostImage;
-            public TextView znanostTitle;
-            public CardView cardView;
-
-            public ViewHolder(View itemView) {
-
-                super(itemView);
-                znanostImage = (ImageView) itemView.findViewById(R.id.znanost_image);
-                znanostTitle = (TextView) itemView.findViewById(R.id.znanost_title);
-                cardView = (CardView) itemView.findViewById(R.id.card_view);
-
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int position = getAdapterPosition();
-
-                        sharedPreferences = getSharedPreferences(ClanciHelperPOJO.getWebStranicePREFERENCES(), Context.MODE_PRIVATE);
-                        editor = sharedPreferences.edit();
-
-                        if (position == 0) {
-                            Intent intentEducation = new Intent(MainActivity.this, EducationActivity.class);
-                            editor.putString(ClanciHelperPOJO.getWebStranicePREFERENCES(), ClanciHelperPOJO.getEducation_express());
-                            editor.commit();
-                            intentEducation.putExtra(ClanciHelperPOJO.getEducation_express(), ClanciHelperPOJO.getEducation_express());
-                            startActivity(intentEducation);
-                        } else if (position == 1) {
-                            Intent intentDemocracy = new Intent(MainActivity.this, DemocracyActivity.class);
-                            startActivity(intentDemocracy);
-                        } else if (position == 2) {
-                            Intent intentClanci = new Intent(MainActivity.this, ClanciActivity.class);
-                            startActivity(intentClanci);
-                        } else if (position == 3) {
-                            Intent intentDonation = new Intent(MainActivity.this, DonationActivity.class);
-                            startActivity(intentDonation);
-                        } else if (position == 4) {
-                            Intent intentKZInicijativa = new Intent(MainActivity.this, KZInicijativaActivity.class);
-                            startActivity(intentKZInicijativa);
-                        } else if (position == 5) {
-                            Intent intentMotivator = new Intent(MainActivity.this, MotivatorActivity.class);
-                            startActivity(intentMotivator);
-                        } else if (position == 6) {
-                            Intent intentReality = new Intent(MainActivity.this, RealityActivity.class);
-                            startActivity(intentReality);
-                        } else if (position == 7) {
-                            Intent intentSmartCity = new Intent(MainActivity.this, SmartCityActivity.class);
-                            startActivity(intentSmartCity);
-                        }
-                    }
-                });
-            }
-        }
-    }
 }
+
+
+
+
+
+
 
 

@@ -28,7 +28,14 @@
         <activity android:name=".vrste_posla.poslovi.PosloviActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".login.ResetPasswordActivity" />
-        <activity android:name=".login.SignUpActivity"></activity>
+        <activity android:name=".login.SignUpActivity" />
+        <activity android:name=".clanovi.statusi.FavoritiActivity" />
+        <activity android:name=".clanovi.statusi.PovijestActivity" />
+        <activity android:name=".clanovi.statusi.PonudeActivity" />
+        <activity android:name=".clanovi.statusi.PrihvacenoActivity" />
+        <activity android:name=".clanovi.statusi.PotraznjeActivity" />
+        <activity android:name=".biznis_plan.QuantiActivity" />
+        <activity android:name=".biznis_plan.DonacijaActivity"></activity>
     </application>
 
 </manifest>
