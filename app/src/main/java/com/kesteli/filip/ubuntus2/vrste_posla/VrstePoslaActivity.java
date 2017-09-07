@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.kesteli.filip.ubuntus2.MainActivity;
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.PosloviActivity;
 
@@ -94,14 +93,7 @@ public class VrstePoslaActivity extends AppCompatActivity
     }
 
     private void setupListeners() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override
@@ -139,20 +131,31 @@ public class VrstePoslaActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_instrukcije) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_elektricni_popravak) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_mehanicki_popravak) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_ostali_popravci) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_manualni_rad) {
+
+        } else if (id == R.id.nav_pisanje_projekata) {
+
+        } else if (id == R.id.nav_programiranje) {
+
+        } else if (id == R.id.nav_nastupanje) {
+
+        } else if (id == R.id.nav_istrazivanje) {
+
+        } else if (id == R.id.nav_ostalo) {
+
+        } else if (id == R.id.nav_quanti) {
+
+        } else if (id == R.id.nav_donacija) {
 
         }
 
@@ -202,7 +205,8 @@ public class VrstePoslaActivity extends AppCompatActivity
             holder.znanostTitle.setText(pojoVrstePosla.getTitles()[position]);
 //            holder.znanostImage.setImageResource(images[position]);
             holder.znanostImage.setImageResource(pojoVrstePosla.getImages()[position]);
-            holder.cardView.setCardBackgroundColor(pojoVrstePosla.getColors()[position]);
+            holder.cardView.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            //pojoVrstePosla.getColors()[position]
         }
 
         @Override

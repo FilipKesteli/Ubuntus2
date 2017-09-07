@@ -3,33 +3,57 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_instrukcije"
+            android:icon="@drawable/ic_group_white_24dp"
+            android:title="Instrukcije" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_elektricni_popravak"
+            android:icon="@drawable/ic_scanner_white_24dp"
+            android:title="Električni popravak" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_mehanicki_popravak"
+            android:icon="@drawable/ic_directions_car_white_24dp"
+            android:title="Mehanički popravak" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_ostali_popravci"
+            android:icon="@drawable/ic_toys_white_24dp"
+            android:title="Ostali popravci" />
+        <item
+            android:id="@+id/nav_manualni_rad"
+            android:icon="@drawable/ic_format_paint_white_24dp"
+            android:title="Manualni rad" />
+        <item
+            android:id="@+id/nav_pisanje_projekata"
+            android:icon="@drawable/ic_spellcheck_white_24dp"
+            android:title="Pisanje projekata" />
+        <item
+            android:id="@+id/nav_programiranje"
+            android:icon="@drawable/ic_laptop_mac_white_24dp"
+            android:title="Programiranje" />
+        <item
+            android:id="@+id/nav_nastupanje"
+            android:icon="@drawable/ic_accessibility_white_24dp"
+            android:title="Nastupanje" />
+        <item
+            android:id="@+id/nav_istrazivanje"
+            android:icon="@drawable/ic_memory_white_24dp"
+            android:title="Istraživanje" />
+        <item
+            android:id="@+id/nav_ostalo"
+            android:icon="@drawable/ic_music_video_white_24dp"
+            android:title="Ostalo" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="QUANTi">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_quanti"
+                android:icon="@drawable/ic_all_inclusive_white_24dp"
+                android:title="Cooperation QUANTi" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_donacija"
+                android:icon="@drawable/ic_account_balance_white_24dp"
+                android:title="Donacija" />
         </menu>
     </item>
 

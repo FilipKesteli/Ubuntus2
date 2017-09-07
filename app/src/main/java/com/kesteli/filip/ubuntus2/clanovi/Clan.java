@@ -11,25 +11,25 @@ public class Clan {
     private int godine, brojUspjesnihTransakcija;
 
     //instrukcije
-    private int fizika;
-    private int matematika;
-    private int kemija;
-    private int androidDevelopment;
+    private int fizika, matematika, kemija, androidInstrukcije, webInstrukcije;
 
-    //elektro-mehanicki popravak
-    private int vesMasina, suderica, bojler, hidrofor, mobitel, kompjutor;
+    //elektricni popravak
+    private int vesMasinaElektricni, sudericaElektricni, bojlerElektricni, hidroforElektricni, mobitelElektricni, kompjutorElektricni;
+
+    //mehanicki popravak
+    private int vesMasinaMehanicki, sudericaMehanicki, bojlerMehanicki, hidroforMehanicki, kompjutorMehanicki;
 
     //ostali popravci - posebno staviti mogucnost biranja naziva popravka
     private int ostaliPopravci;
 
     //manualni rad
-    private int poljoprivreda, gradevina, pazitelj;
+    private int poljoprivreda, gradevina, vinograd, pazitelj;
 
     //programiranje
     private int android, iOS, web, machineLearning, bazePodataka;
 
     //nastup
-    private int radio, tv, javniGovor;
+    private int radio, tv, javniGovor, kazaliste, politika;
 
     //ostalo
     private int ostalo;
@@ -37,7 +37,7 @@ public class Clan {
     public Clan() {
     }
 
-    public Clan(String idClan, String ime, String prezime, String eMail, int godine, int brojUspjesnihTransakcija, int fizika, int matematika, int kemija, int androidDevelopment, int vesMasina, int suderica, int bojler, int hidrofor, int mobitel, int kompjutor, int ostaliPopravci, int poljoprivreda, int gradevina, int pazitelj, int android, int iOS, int web, int machineLearning, int bazePodataka, int radio, int tv, int javniGovor, int ostalo) {
+    public Clan(String idClan, String ime, String prezime, String eMail, int godine, int brojUspjesnihTransakcija, int fizika, int matematika, int kemija, int androidInstrukcije, int webInstrukcije, int vesMasinaElektricni, int sudericaElektricni, int bojlerElektricni, int hidroforElektricni, int mobitelElektricni, int kompjutorElektricni, int vesMasinaMehanicki, int sudericaMehanicki, int bojlerMehanicki, int hidroforMehanicki, int kompjutorMehanicki, int ostaliPopravci, int poljoprivreda, int gradevina, int vinograd, int pazitelj, int android, int iOS, int web, int machineLearning, int bazePodataka, int radio, int tv, int javniGovor, int kazaliste, int politika, int ostalo) {
         this.idClan = idClan;
         this.ime = ime;
         this.prezime = prezime;
@@ -47,16 +47,23 @@ public class Clan {
         this.fizika = fizika;
         this.matematika = matematika;
         this.kemija = kemija;
-        this.androidDevelopment = androidDevelopment;
-        this.vesMasina = vesMasina;
-        this.suderica = suderica;
-        this.bojler = bojler;
-        this.hidrofor = hidrofor;
-        this.mobitel = mobitel;
-        this.kompjutor = kompjutor;
+        this.androidInstrukcije = androidInstrukcije;
+        this.webInstrukcije = webInstrukcije;
+        this.vesMasinaElektricni = vesMasinaElektricni;
+        this.sudericaElektricni = sudericaElektricni;
+        this.bojlerElektricni = bojlerElektricni;
+        this.hidroforElektricni = hidroforElektricni;
+        this.mobitelElektricni = mobitelElektricni;
+        this.kompjutorElektricni = kompjutorElektricni;
+        this.vesMasinaMehanicki = vesMasinaMehanicki;
+        this.sudericaMehanicki = sudericaMehanicki;
+        this.bojlerMehanicki = bojlerMehanicki;
+        this.hidroforMehanicki = hidroforMehanicki;
+        this.kompjutorMehanicki = kompjutorMehanicki;
         this.ostaliPopravci = ostaliPopravci;
         this.poljoprivreda = poljoprivreda;
         this.gradevina = gradevina;
+        this.vinograd = vinograd;
         this.pazitelj = pazitelj;
         this.android = android;
         this.iOS = iOS;
@@ -66,6 +73,8 @@ public class Clan {
         this.radio = radio;
         this.tv = tv;
         this.javniGovor = javniGovor;
+        this.kazaliste = kazaliste;
+        this.politika = politika;
         this.ostalo = ostalo;
     }
 
@@ -141,60 +150,108 @@ public class Clan {
         this.kemija = kemija;
     }
 
-    public int getAndroidDevelopment() {
-        return androidDevelopment;
+    public int getAndroidInstrukcije() {
+        return androidInstrukcije;
     }
 
-    public void setAndroidDevelopment(int androidDevelopment) {
-        this.androidDevelopment = androidDevelopment;
+    public void setAndroidInstrukcije(int androidInstrukcije) {
+        this.androidInstrukcije = androidInstrukcije;
     }
 
-    public int getVesMasina() {
-        return vesMasina;
+    public int getWebInstrukcije() {
+        return webInstrukcije;
     }
 
-    public void setVesMasina(int vesMasina) {
-        this.vesMasina = vesMasina;
+    public void setWebInstrukcije(int webInstrukcije) {
+        this.webInstrukcije = webInstrukcije;
     }
 
-    public int getSuderica() {
-        return suderica;
+    public int getVesMasinaElektricni() {
+        return vesMasinaElektricni;
     }
 
-    public void setSuderica(int suderica) {
-        this.suderica = suderica;
+    public void setVesMasinaElektricni(int vesMasinaElektricni) {
+        this.vesMasinaElektricni = vesMasinaElektricni;
     }
 
-    public int getBojler() {
-        return bojler;
+    public int getSudericaElektricni() {
+        return sudericaElektricni;
     }
 
-    public void setBojler(int bojler) {
-        this.bojler = bojler;
+    public void setSudericaElektricni(int sudericaElektricni) {
+        this.sudericaElektricni = sudericaElektricni;
     }
 
-    public int getHidrofor() {
-        return hidrofor;
+    public int getBojlerElektricni() {
+        return bojlerElektricni;
     }
 
-    public void setHidrofor(int hidrofor) {
-        this.hidrofor = hidrofor;
+    public void setBojlerElektricni(int bojlerElektricni) {
+        this.bojlerElektricni = bojlerElektricni;
     }
 
-    public int getMobitel() {
-        return mobitel;
+    public int getHidroforElektricni() {
+        return hidroforElektricni;
     }
 
-    public void setMobitel(int mobitel) {
-        this.mobitel = mobitel;
+    public void setHidroforElektricni(int hidroforElektricni) {
+        this.hidroforElektricni = hidroforElektricni;
     }
 
-    public int getKompjutor() {
-        return kompjutor;
+    public int getMobitelElektricni() {
+        return mobitelElektricni;
     }
 
-    public void setKompjutor(int kompjutor) {
-        this.kompjutor = kompjutor;
+    public void setMobitelElektricni(int mobitelElektricni) {
+        this.mobitelElektricni = mobitelElektricni;
+    }
+
+    public int getKompjutorElektricni() {
+        return kompjutorElektricni;
+    }
+
+    public void setKompjutorElektricni(int kompjutorElektricni) {
+        this.kompjutorElektricni = kompjutorElektricni;
+    }
+
+    public int getVesMasinaMehanicki() {
+        return vesMasinaMehanicki;
+    }
+
+    public void setVesMasinaMehanicki(int vesMasinaMehanicki) {
+        this.vesMasinaMehanicki = vesMasinaMehanicki;
+    }
+
+    public int getSudericaMehanicki() {
+        return sudericaMehanicki;
+    }
+
+    public void setSudericaMehanicki(int sudericaMehanicki) {
+        this.sudericaMehanicki = sudericaMehanicki;
+    }
+
+    public int getBojlerMehanicki() {
+        return bojlerMehanicki;
+    }
+
+    public void setBojlerMehanicki(int bojlerMehanicki) {
+        this.bojlerMehanicki = bojlerMehanicki;
+    }
+
+    public int getHidroforMehanicki() {
+        return hidroforMehanicki;
+    }
+
+    public void setHidroforMehanicki(int hidroforMehanicki) {
+        this.hidroforMehanicki = hidroforMehanicki;
+    }
+
+    public int getKompjutorMehanicki() {
+        return kompjutorMehanicki;
+    }
+
+    public void setKompjutorMehanicki(int kompjutorMehanicki) {
+        this.kompjutorMehanicki = kompjutorMehanicki;
     }
 
     public int getOstaliPopravci() {
@@ -219,6 +276,14 @@ public class Clan {
 
     public void setGradevina(int gradevina) {
         this.gradevina = gradevina;
+    }
+
+    public int getVinograd() {
+        return vinograd;
+    }
+
+    public void setVinograd(int vinograd) {
+        this.vinograd = vinograd;
     }
 
     public int getPazitelj() {
@@ -291,6 +356,22 @@ public class Clan {
 
     public void setJavniGovor(int javniGovor) {
         this.javniGovor = javniGovor;
+    }
+
+    public int getKazaliste() {
+        return kazaliste;
+    }
+
+    public void setKazaliste(int kazaliste) {
+        this.kazaliste = kazaliste;
+    }
+
+    public int getPolitika() {
+        return politika;
+    }
+
+    public void setPolitika(int politika) {
+        this.politika = politika;
     }
 
     public int getOstalo() {

@@ -16,24 +16,28 @@ public class POJOVrstePosla {
 
     private String[] titles = {
             "Instrukcije",
-            "Elektro-mehanički popravak",
+            "Električni popravak",
+            "Mehanički popravak",
             "Ostali popravci",
             "Manualni rad",
             "Pisanje projekata",
             "Programiranje",
             "Nastupanje",
+            "Istraživanje",
             "Ostalo"
     };
 
     private int[] images = {
-            R.drawable.ic_favorite_white_24dp,
-            R.drawable.ic_favorite_white_24dp,
-            R.drawable.ic_favorite_white_24dp,
-            R.drawable.ic_favorite_white_24dp,
-            R.drawable.ic_favorite_white_24dp,
-            R.drawable.ic_favorite_white_24dp,
-            R.drawable.ic_favorite_white_24dp,
-            R.drawable.ic_favorite_white_24dp
+            R.drawable.ic_group_white_24dp,
+            R.drawable.ic_scanner_white_24dp,
+            R.drawable.ic_directions_car_white_24dp,
+            R.drawable.ic_toys_white_24dp,
+            R.drawable.ic_format_paint_white_24dp,
+            R.drawable.ic_spellcheck_white_24dp,
+            R.drawable.ic_laptop_mac_white_24dp,
+            R.drawable.ic_accessibility_white_24dp,
+            R.drawable.ic_memory_white_24dp,
+            R.drawable.ic_music_video_white_24dp
     };
 
     private int[] colors = {
@@ -45,6 +49,8 @@ public class POJOVrstePosla {
             Color.RED,
             Color.GREEN,
             Color.GREEN,
+            Color.CYAN,
+            Color.CYAN
     };
 
     /**
