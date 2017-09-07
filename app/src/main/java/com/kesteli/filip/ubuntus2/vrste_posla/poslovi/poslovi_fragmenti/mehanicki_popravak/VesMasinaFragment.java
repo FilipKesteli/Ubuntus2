@@ -1,4 +1,4 @@
-package com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti;
+package com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.mehanicki_popravak;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.kesteli.filip.ubuntus2.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MatematikaFragment extends Fragment {
+public class VesMasinaFragment extends Fragment {
 
 
-    public MatematikaFragment() {
+    public VesMasinaFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class MatematikaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_matematika, container, false);
+        return inflater.inflate(R.layout.fragment_ves_masina, container, false);
     }
 
 }
