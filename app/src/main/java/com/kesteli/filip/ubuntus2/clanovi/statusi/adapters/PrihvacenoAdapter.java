@@ -1,4 +1,4 @@
-package com.kesteli.filip.ubuntus2.clanovi.statusi;
+package com.kesteli.filip.ubuntus2.clanovi.statusi.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kesteli.filip.ubuntus2.R;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.Album;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by Valemate on 7.9.2017..
  */
 
-public class PonudeAdapter extends RecyclerView.Adapter<PonudeAdapter.MyViewHolder> {
+public class PrihvacenoAdapter extends RecyclerView.Adapter<PrihvacenoAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Album> albumList;
@@ -30,7 +31,7 @@ public class PonudeAdapter extends RecyclerView.Adapter<PonudeAdapter.MyViewHold
      * Click listener for popup menu items
      */
     //Konstruktor kojim punimo listu
-    public PonudeAdapter(Context mContext, List<Album> albumList) {
+    public PrihvacenoAdapter(Context mContext, List<Album> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
     }
@@ -103,7 +104,7 @@ public class PonudeAdapter extends RecyclerView.Adapter<PonudeAdapter.MyViewHold
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_album, popup.getMenu());
-        popup.setOnMenuItemClickListener(new PonudeAdapter.MyMenuItemClickListener());
+        popup.setOnMenuItemClickListener(new PrihvacenoAdapter.MyMenuItemClickListener());
         popup.show();
     }
 

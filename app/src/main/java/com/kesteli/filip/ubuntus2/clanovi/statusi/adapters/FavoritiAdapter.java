@@ -1,4 +1,4 @@
-package com.kesteli.filip.ubuntus2.clanovi.statusi;
+package com.kesteli.filip.ubuntus2.clanovi.statusi.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kesteli.filip.ubuntus2.R;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.Album;
 
 import java.util.List;
 

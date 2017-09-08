@@ -2,6 +2,7 @@ package com.kesteli.filip.ubuntus2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +31,7 @@ import com.kesteli.filip.ubuntus2.clanovi.statusi.PonudeActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PotraznjeActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PovijestActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PrihvacenoActivity;
+import com.kesteli.filip.ubuntus2.login.LoginActivity;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.ProfilFragment;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.UbuntusFragment;
 import com.kesteli.filip.ubuntus2.vrste_posla.VrstePoslaActivity;
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private ProgressBar progressBar;
+
     private DatabaseReference databaseReference;
     private DatabaseReference childClanovi;
     private DatabaseReference childClan1;
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         setupTabLayout();
         setupFragments();
 
+        setupAuthenticationFirebase();
         setupListeners();
     }
 
@@ -99,23 +107,25 @@ public class MainActivity extends AppCompatActivity
 
     private void setupFragments() {
         adapter.addFrag(new UbuntusFragment(), "Ubuntus");
-        adapter.addFrag(new ProfilFragment(), "Profil");
+        adapter.addFrag(new ProfilFragment(), "Favoriti");
         adapter.addFrag(new ProfilFragment(), "Prihvaćeno");
         adapter.addFrag(new ProfilFragment(), "Ponude");
         adapter.addFrag(new ProfilFragment(), "Potražnje");
+        adapter.addFrag(new ProfilFragment(), "Povijest");
         viewPager.setAdapter(adapter);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_all_inclusive_white_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_face_white_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite_white_24dp);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_check_circle_white_24dp);
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_dashboard_white_24dp);
         tabLayout.getTabAt(4).setIcon(R.drawable.ic_loop_white_24dp);
+        tabLayout.getTabAt(5).setIcon(R.drawable.ic_history_white_24dp);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
 
+        private final List<String> mFragmentTitleList = new ArrayList<>();
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
@@ -139,8 +149,8 @@ public class MainActivity extends AppCompatActivity
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
 
+    }
     private void setupToolbar() {
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
@@ -156,6 +166,25 @@ public class MainActivity extends AppCompatActivity
 
     private void setupNavigationView() {
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setupAuthenticationFirebase() {
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        };
+
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void setupListeners() {
@@ -188,21 +217,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.action_povijest:
+            case R.id.action_settings:
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
         }
-
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
-
         return super.onOptionsItemSelected(item);
     }
 

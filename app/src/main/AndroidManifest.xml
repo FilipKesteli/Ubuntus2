@@ -35,7 +35,8 @@
         <activity android:name=".clanovi.statusi.PrihvacenoActivity" />
         <activity android:name=".clanovi.statusi.PotraznjeActivity" />
         <activity android:name=".biznis_plan.QuantiActivity" />
-        <activity android:name=".biznis_plan.DonacijaActivity"></activity>
+        <activity android:name=".biznis_plan.DonacijaActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

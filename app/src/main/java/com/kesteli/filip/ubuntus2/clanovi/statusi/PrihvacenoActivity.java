@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.kesteli.filip.ubuntus2.R;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.adapters.PrihvacenoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
