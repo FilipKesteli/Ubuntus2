@@ -1,13 +1,37 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kesteli.filip.ubuntus2.UbuntusFragment">
+    android:orientation="vertical"
+    tools:context="com.kesteli.filip.ubuntus2.pocetna_stranica.UbuntusFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvWelcome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="WELCOME TO WORLD WITHOUT MONEY! :)"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="How are you today? \n"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:layout_below="@+id/tvWelcome"
+        android:layout_centerHorizontal="true" />
+
+    <com.hsalf.smilerating.SmileRating
+        android:layout_width="wrap_content"
+        android:id="@+id/smileyRating"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvToday" />
+
+</RelativeLayout>

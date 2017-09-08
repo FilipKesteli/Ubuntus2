@@ -29,6 +29,8 @@ import com.kesteli.filip.ubuntus2.clanovi.statusi.PonudeActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PotraznjeActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PovijestActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PrihvacenoActivity;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.ProfilFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.UbuntusFragment;
 import com.kesteli.filip.ubuntus2.vrste_posla.VrstePoslaActivity;
 
 import java.util.ArrayList;

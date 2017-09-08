@@ -34,8 +34,9 @@
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="20dp"
             android:layout_toRightOf="@id/znanost_image"
-            android:text="Znanost"
+            android:gravity="center"
             android:maxLines="10"
+            android:text="Znanost"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

@@ -13,9 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.kesteli.filip.ubuntus2.ProfilFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.ProfilFragment;
 import com.kesteli.filip.ubuntus2.R;
-import com.kesteli.filip.ubuntus2.UbuntusFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.UbuntusFragment;
 
 import java.util.ArrayList;
 import java.util.List;

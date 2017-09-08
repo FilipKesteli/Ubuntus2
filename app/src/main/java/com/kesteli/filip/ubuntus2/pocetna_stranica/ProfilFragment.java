@@ -1,4 +1,4 @@
-package com.kesteli.filip.ubuntus2;
+package com.kesteli.filip.ubuntus2.pocetna_stranica;
 
 
 import android.content.Intent;
@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.clanovi.Clan;
 import com.kesteli.filip.ubuntus2.login.SignUpActivity;
 import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.PosloviActivity;

@@ -103,9 +103,9 @@ public class PrihvacenoActivity extends AppCompatActivity {
      */
     private void initCollapsingToolbar() {
         final CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbarFavorite);
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbarPrihvaceno);
         collapsingToolbar.setTitle(" ");
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbarFavorite);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbarPrihvaceno);
         appBarLayout.setExpanded(true);
 
         // hiding & showing the title when toolbar expanded & collapsed
