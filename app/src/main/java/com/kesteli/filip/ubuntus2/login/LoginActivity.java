@@ -17,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kesteli.filip.ubuntus2.MainActivity;
 import com.kesteli.filip.ubuntus2.R;
+import com.kesteli.filip.ubuntus2.clanovi.statusi.PrihvacenoActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,17 +29,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setupFirebase();
-
         // set the view now
         setContentView(R.layout.activity_login);
+        Toast.makeText(LoginActivity.this, "Ovo je LoginActivity", Toast.LENGTH_SHORT).show();
 
+        setupFirebase();
         initViews();
         setupListeners();
-
-        //Get Firebase auth instance
-//        auth = FirebaseAuth.getInstance();
     }
 
     private void setupFirebase() {

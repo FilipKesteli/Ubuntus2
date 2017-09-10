@@ -8,11 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.kesteli.filip.ubuntus2.login.SignUpActivity;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.ProfilFragment;
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.UbuntusFragment;
@@ -39,6 +41,7 @@ public class PosloviActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poslovi);
+        Toast.makeText(PosloviActivity.this, "Ovo je PosloviActivity", Toast.LENGTH_SHORT).show();
 
         setupFirebase();
         initViews();

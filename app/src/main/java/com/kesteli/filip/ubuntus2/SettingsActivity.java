@@ -55,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Toast.makeText(SettingsActivity.this, "Ovo je SettingsActivity", Toast.LENGTH_SHORT).show();
 
         setupFirebase();
         initViews();

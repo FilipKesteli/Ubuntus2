@@ -26,6 +26,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
+        Toast.makeText(ResetPasswordActivity.this, "Ovo je ResetPasswordActivity", Toast.LENGTH_SHORT).show();
 
         setupFirebase();
         initViews();

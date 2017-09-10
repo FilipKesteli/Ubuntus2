@@ -13,10 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.adapters.PrihvacenoAdapter;
+import com.kesteli.filip.ubuntus2.vrste_posla.VrstePoslaActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class PrihvacenoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prihvaceno);
+        Toast.makeText(PrihvacenoActivity.this, "Ovo je PrihvacenoActivity", Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPrihvaceno);
         setSupportActionBar(toolbar);

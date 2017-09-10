@@ -13,9 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kesteli.filip.ubuntus2.R;
+import com.kesteli.filip.ubuntus2.biznis_plan.DonacijaActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.adapters.FavoritiAdapter;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class FavoritiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoriti);
+        Toast.makeText(FavoritiActivity.this, "Ovo je FavoritiActivity", Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFavoriti);
         setSupportActionBar(toolbar);

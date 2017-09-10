@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toast.makeText(MainActivity.this, "Ovo je VrstePoslaActivity", Toast.LENGTH_SHORT).show();
 
         setupFirebase();
         initViews();
@@ -262,9 +264,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 }
-
-
-
 
 
 

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kesteli.filip.ubuntus2.R;
@@ -31,6 +32,7 @@ public class PotraznjeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_potraznje);
+        Toast.makeText(PotraznjeActivity.this, "Ovo je PotraznjeActivity", Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPotraznje);
         setSupportActionBar(toolbar);
