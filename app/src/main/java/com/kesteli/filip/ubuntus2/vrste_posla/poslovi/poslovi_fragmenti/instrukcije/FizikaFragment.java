@@ -2,17 +2,14 @@ package com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instruk
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,10 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.Album;
-import com.kesteli.filip.ubuntus2.clanovi.statusi.adapters.FavoritiAdapter;
-import com.kesteli.filip.ubuntus2.vrste_posla.POJOVrstePosla;
-import com.kesteli.filip.ubuntus2.vrste_posla.VrstePoslaActivity;
-import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.PosloviActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -233,7 +226,6 @@ public class FizikaFragment extends Fragment {
                 }
                 return false;
             }
-
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -273,9 +265,6 @@ public class FizikaFragment extends Fragment {
         childTiranosaurus.child("length").setValue(7.4);
         childTiranosaurus.child("weight").setValue(3000);
 
-        *//**
-         * TODO - Ovaj kod prebaciti u Eurekas - ubacivanje u bazu
-         *//*
         childTimovi = databaseReference.child("Timovi");
         childClanovi = childTimovi.child("Tim1865").child("Clanovi");
 

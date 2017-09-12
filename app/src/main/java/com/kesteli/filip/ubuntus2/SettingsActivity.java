@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private String idClan, ime, prezime, eMail;
     private int godine, brojUspjesnihTransakcija,
-            fizika, matematika, vesMasina, mobitel,
+            fizika, matematika, kemija, webInstrukcije, androidInstrukcije, vesMasina, mobitel,
             kompjutor, automobil, poljoprivreda,
             gradevina, pazitelj;
 
@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         initViews();
         setupToolbar();
         setupAuthenticationFirebase();
-        setupListener();
+        setupListeners();
     }
 
     private void setupFirebase() {
@@ -132,7 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void setupListener() {
+    private void setupListeners() {
         btnChangeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -288,6 +288,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: Logika - cachiranje!
         btnUpdateUserData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,15 +321,10 @@ public class SettingsActivity extends AppCompatActivity {
                     // The user's ID, unique to the Firebase project. Do NOT use this value to
                     // authenticate with your backend server, if you have one. Use
                     // FirebaseUser.getToken() instead.
+                    // photoUrl
                     String uid = user.getUid();
-                    Log.d("a2", name + " " + email + " " + photoUrl + " " + uid);
+                    Log.d("a2", name + " " + email + " " + uid);
                 }
-            }
-        });
-        btnProbaFirebase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
         btnProbaFirebase.setOnClickListener(new View.OnClickListener() {
@@ -355,6 +351,9 @@ public class SettingsActivity extends AppCompatActivity {
         brojUspjesnihTransakcija = 43;
         fizika = 32;
         matematika = 34;
+        kemija = 34;
+        webInstrukcije = 34;
+        androidInstrukcije = 34;
         vesMasina = 324;
         mobitel = 32;
         kompjutor = 432;
@@ -376,6 +375,7 @@ public class SettingsActivity extends AppCompatActivity {
         childClan1.child("brojUspjesnihTransakcija").setValue(brojUspjesnihTransakcija);
         childClan1.child("fizika").setValue(fizika);
         childClan1.child("matematika").setValue(matematika);
+        childClan1.child("kemija").setValue(kemija);
         childClan1.child("vesMasina").setValue(vesMasina);
         childClan1.child("mobitel").setValue(mobitel);
         childClan1.child("kompjutor").setValue(kompjutor);
