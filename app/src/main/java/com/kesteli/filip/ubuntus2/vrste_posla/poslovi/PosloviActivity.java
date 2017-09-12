@@ -1,5 +1,6 @@
 package com.kesteli.filip.ubuntus2.vrste_posla.poslovi;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,16 +9,20 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.kesteli.filip.ubuntus2.login.SignUpActivity;
-import com.kesteli.filip.ubuntus2.pocetna_stranica.ProfilFragment;
 import com.kesteli.filip.ubuntus2.R;
-import com.kesteli.filip.ubuntus2.pocetna_stranica.UbuntusFragment;
+import com.kesteli.filip.ubuntus2.vrste_posla.POJOVrstePosla;
+import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instrukcije.AndroidInstrukcijeFragment;
+import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instrukcije.FizikaFragment;
+import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instrukcije.KemijaFragment;
+import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instrukcije.MatematikaFragment;
+import com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instrukcije.WebInstrukcijeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +34,7 @@ public class PosloviActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference databaseReference;
     private DatabaseReference childClanovi;
-    private DatabaseReference childClan1;
+    private DatabaseReference childClan;
 
     private Toolbar toolbarPoslovi;
 
@@ -87,17 +92,48 @@ public class PosloviActivity extends AppCompatActivity {
     }
 
     private void setupFragments() {
-        adapterPoslovi.addFrag(new UbuntusFragment(), "Ubuntus");
-        adapterPoslovi.addFrag(new ProfilFragment(), "Profil");
-        adapterPoslovi.addFrag(new ProfilFragment(), "Prihvaćeno");
-        adapterPoslovi.addFrag(new ProfilFragment(), "Ponude");
-        adapterPoslovi.addFrag(new ProfilFragment(), "Potražnje");
-        viewPagerPoslovi.setAdapter(adapterPoslovi);
-        tabLayoutPoslovi.getTabAt(0).setIcon(R.drawable.ic_all_inclusive_white_24dp);
-        tabLayoutPoslovi.getTabAt(1).setIcon(R.drawable.ic_face_white_24dp);
-        tabLayoutPoslovi.getTabAt(2).setIcon(R.drawable.ic_check_circle_white_24dp);
-        tabLayoutPoslovi.getTabAt(3).setIcon(R.drawable.ic_dashboard_white_24dp);
-        tabLayoutPoslovi.getTabAt(4).setIcon(R.drawable.ic_loop_white_24dp);
+        Intent intent = getIntent();
+        if (intent.hasExtra(POJOVrstePosla.getInstrukcije())) {
+            adapterPoslovi.addFrag(new FizikaFragment(), "Fizika");
+            adapterPoslovi.addFrag(new KemijaFragment(), "Kemija");
+            adapterPoslovi.addFrag(new MatematikaFragment(), "Matematika");
+            adapterPoslovi.addFrag(new WebInstrukcijeFragment(), "Web instrukcije");
+            adapterPoslovi.addFrag(new AndroidInstrukcijeFragment(), "Android instrukcije");
+            viewPagerPoslovi.setAdapter(adapterPoslovi);
+            tabLayoutPoslovi.getTabAt(0).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(1).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(2).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(3).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(4).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+        } else if (intent.hasExtra(POJOVrstePosla.getElektricni_popravak())) {
+            adapterPoslovi.addFrag(new FizikaFragment(), "Fizika");
+            adapterPoslovi.addFrag(new KemijaFragment(), "Kemija");
+            adapterPoslovi.addFrag(new MatematikaFragment(), "Matematika");
+            adapterPoslovi.addFrag(new WebInstrukcijeFragment(), "Web instrukcije");
+            adapterPoslovi.addFrag(new AndroidInstrukcijeFragment(), "Android instrukcije");
+            viewPagerPoslovi.setAdapter(adapterPoslovi);
+            tabLayoutPoslovi.getTabAt(0).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(1).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(2).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(3).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+            tabLayoutPoslovi.getTabAt(4).setIcon(R.drawable.ic_all_inclusive_white_24dp);
+        } else if (intent.hasExtra(POJOVrstePosla.getIstrazivanje())) {
+
+        } else if (intent.hasExtra(POJOVrstePosla.getManualni_rad())) {
+
+        } else if (intent.hasExtra(POJOVrstePosla.getMehanicki_popravak())) {
+
+        } else if (intent.hasExtra(POJOVrstePosla.getNastupanje())) {
+
+        } else if (intent.hasExtra(POJOVrstePosla.getOstali_popravci())) {
+
+        } else if (intent.hasExtra(POJOVrstePosla.getOstalo())) {
+
+        } else if (intent.hasExtra(POJOVrstePosla.getPisanje_projekata())) {
+
+        } else if (intent.hasExtra(POJOVrstePosla.getProgramiranje())) {
+
+        }
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

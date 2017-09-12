@@ -18,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.kesteli.filip.ubuntus2.MainActivity;
 import com.kesteli.filip.ubuntus2.R;
 
+/**
+ * Registracija usera
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText etInputEmail, etInputPassword;

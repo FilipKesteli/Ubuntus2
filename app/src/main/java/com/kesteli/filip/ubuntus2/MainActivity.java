@@ -33,7 +33,11 @@ import com.kesteli.filip.ubuntus2.clanovi.statusi.PotraznjeActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PovijestActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PrihvacenoActivity;
 import com.kesteli.filip.ubuntus2.login.LoginActivity;
-import com.kesteli.filip.ubuntus2.pocetna_stranica.ProfilFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.FavoritiFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.PonudeFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.PotraznjeFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.PovijestFragment;
+import com.kesteli.filip.ubuntus2.pocetna_stranica.PrihvacenoFragment;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.UbuntusFragment;
 import com.kesteli.filip.ubuntus2.vrste_posla.VrstePoslaActivity;
 
@@ -60,8 +64,6 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         setupTabLayout();
         setupFragments();
 
-        setupAuthenticationFirebase();
+//        setupAuthenticationFirebase();
         setupListeners();
     }
 
@@ -109,11 +111,11 @@ public class MainActivity extends AppCompatActivity
 
     private void setupFragments() {
         adapter.addFrag(new UbuntusFragment(), "Ubuntus");
-        adapter.addFrag(new ProfilFragment(), "Favoriti");
-        adapter.addFrag(new ProfilFragment(), "Prihvaćeno");
-        adapter.addFrag(new ProfilFragment(), "Ponude");
-        adapter.addFrag(new ProfilFragment(), "Potražnje");
-        adapter.addFrag(new ProfilFragment(), "Povijest");
+        adapter.addFrag(new FavoritiFragment(), "Favoriti");
+        adapter.addFrag(new PrihvacenoFragment(), "Prihvaćeno");
+        adapter.addFrag(new PonudeFragment(), "Ponude");
+        adapter.addFrag(new PotraznjeFragment(), "Potražnje");
+        adapter.addFrag(new PovijestFragment(), "Povijest");
         viewPager.setAdapter(adapter);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_all_inclusive_white_24dp);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite_white_24dp);
@@ -170,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void setupAuthenticationFirebase() {
+    /*private void setupAuthenticationFirebase() {
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-    }
+    }*/
 
     private void setupListeners() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabVrstePosla);

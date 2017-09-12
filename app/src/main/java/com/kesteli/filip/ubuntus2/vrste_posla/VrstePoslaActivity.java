@@ -71,7 +71,7 @@ public class VrstePoslaActivity extends AppCompatActivity
 
     private void initViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbarPoslovi);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_vrste_posla);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
     }
 
@@ -98,12 +98,13 @@ public class VrstePoslaActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        super.onBackPressed();
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
     }
 
     @Override
@@ -132,34 +133,39 @@ public class VrstePoslaActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        sharedPreferences = getSharedPreferences(POJOVrstePosla.getVrste_posla_PREFERENCES(), Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        Intent intent = new Intent(VrstePoslaActivity.this, PosloviActivity.class);
+        String znanost = null;
 
         if (id == R.id.nav_instrukcije) {
-
+            znanost = POJOVrstePosla.getInstrukcije();
         } else if (id == R.id.nav_elektricni_popravak) {
-
+            znanost = POJOVrstePosla.getElektricni_popravak();
         } else if (id == R.id.nav_mehanicki_popravak) {
-
+            znanost = POJOVrstePosla.getMehanicki_popravak();
         } else if (id == R.id.nav_ostali_popravci) {
-
+            znanost = POJOVrstePosla.getOstali_popravci();
         } else if (id == R.id.nav_manualni_rad) {
-
+            znanost = POJOVrstePosla.getManualni_rad();
         } else if (id == R.id.nav_pisanje_projekata) {
-
+            znanost = POJOVrstePosla.getPisanje_projekata();
         } else if (id == R.id.nav_programiranje) {
-
+            znanost = POJOVrstePosla.getProgramiranje();
         } else if (id == R.id.nav_nastupanje) {
-
+            znanost = POJOVrstePosla.getNastupanje();
         } else if (id == R.id.nav_istrazivanje) {
-
+            znanost = POJOVrstePosla.getIstrazivanje();
         } else if (id == R.id.nav_ostalo) {
-
-        } else if (id == R.id.nav_quanti) {
-
-        } else if (id == R.id.nav_donacija) {
-
+            znanost = POJOVrstePosla.getOstalo();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        editor.putString(POJOVrstePosla.getWebStranicePREFERENCES(), znanost);
+        editor.commit();
+        intent.putExtra(znanost, znanost);
+        startActivity(intent);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_vrste_posla);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -189,7 +195,6 @@ public class VrstePoslaActivity extends AppCompatActivity
     private SharedPreferences.Editor editor;
 
     public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -269,3 +274,7 @@ public class VrstePoslaActivity extends AppCompatActivity
         }
     }
 }
+
+
+
+

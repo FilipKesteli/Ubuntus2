@@ -33,6 +33,12 @@
                 android:id="@+id/nav_donacija"
                 android:icon="@drawable/ic_account_balance_white_24dp"
                 android:title="Donacija" />
+<!--
+            <item
+                android:id="@+id/nav_science_news"
+                android:icon="@drawable/ic_school_white_24dp"
+                android:title="Science news" />
+-->
         </menu>
     </item>
 </menu>
