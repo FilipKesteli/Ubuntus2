@@ -303,7 +303,7 @@ public class SettingsActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Log.d("a1", name + "User profile updated.");
+                                    Log.d("a1", user.getDisplayName() + "User profile updated.");
                                 }
                             }
                         });
@@ -343,10 +343,10 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void addToFirebase() {
-        idClan = "fawfsa";
-        ime = "dalmfa";
-        prezime = "dmals";
-        eMail = "amlfa";
+        idClan = user.getUid();
+        ime = "Ivo";
+        prezime = "Ivic";
+        eMail = user.getEmail();
         godine = 21;
         brojUspjesnihTransakcija = 43;
         fizika = 32;

@@ -215,10 +215,10 @@ public class PotraznjeFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.action_add_favourite:
+                    case R.id.action_dodaj_u_favorite:
                         Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.action_play_next:
+                    case R.id.action_nova_ponuda:
                         Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
                         return true;
                     default:

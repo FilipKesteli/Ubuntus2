@@ -2,7 +2,11 @@ package com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instruk
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,7 +44,7 @@ public class FizikaFragment extends Fragment {
     private FirebaseUser user;
     private DatabaseReference databaseReference;
     private DatabaseReference childClanovi;
-    private DatabaseReference childClan1;
+    private DatabaseReference childClan;
 
     private Toolbar toolbar;
 
@@ -216,15 +220,28 @@ public class FizikaFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.action_add_favourite:
-                        Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
+                    case R.id.action_nova_ponuda:
+                        composeEmail(new String[] {"sasa@gmail.com"}, "Tema");
                         return true;
-                    case R.id.action_play_next:
-                        Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
+                    case R.id.action_dodaj_u_favorite:
+                        /*childClanovi = databaseReference.child("Clanovi");
+                        childClan = childClanovi.child(user.getUid());
+                        childClan.child("favoriti").setValue(123);*/
+                        //TODO Sloziti to da se zna vrijednost iz neke liste, pa to dohvatiti i obraditi
                         return true;
                     default:
                 }
                 return false;
+            }
+        }
+
+        public void composeEmail(String[] addresses, String subject) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(intent);
             }
         }
 

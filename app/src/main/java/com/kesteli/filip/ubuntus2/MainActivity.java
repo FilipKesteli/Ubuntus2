@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -50,12 +51,11 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private ProgressBar progressBar;
-
     private DatabaseReference databaseReference;
     private DatabaseReference childClanovi;
-    private DatabaseReference childClan1;
+    private DatabaseReference childClan;
 
+    private ProgressBar progressBar;
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -64,13 +64,20 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
 
+    private String idClan, ime, prezime, eMail;
+    private int brojUspjesnihTransakcija,
+            fizika, matematika, kemija, webInstrukcije, androidInstrukcije, vesMasina, mobitel,
+            kompjutor, automobil, poljoprivreda,
+            gradevina, pazitelj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(MainActivity.this, "Ovo je VrstePoslaActivity", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "Ovo je MainActivity", Toast.LENGTH_SHORT).show();
 
         setupFirebase();
+        addToFirebase();
         initViews();
         setupToolbar();
         setupHamburgerIcon();
@@ -79,8 +86,6 @@ public class MainActivity extends AppCompatActivity
         setupViewPager();
         setupTabLayout();
         setupFragments();
-
-//        setupAuthenticationFirebase();
         setupListeners();
     }
 
@@ -90,6 +95,25 @@ public class MainActivity extends AppCompatActivity
         auth = FirebaseAuth.getInstance();
         //get current user
         user = FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    private void addToFirebase() {
+        if (user != null) {
+            idClan = user.getUid();
+            ime = "Ivo";
+            prezime = "Ivic";
+            eMail = user.getEmail();
+            brojUspjesnihTransakcija = 43;
+
+            Log.d("c1", user.getUid());
+
+            childClanovi = databaseReference.child("Clanovi");
+            childClan = childClanovi.child(idClan);
+            childClan.child("ime").setValue(ime);
+            childClan.child("prezime").setValue(prezime);
+            childClan.child("eMail").setValue(eMail);
+            childClan.child("brojUspjesnihTransakcija").setValue(brojUspjesnihTransakcija);
+        }
     }
 
     private void initViews() {
@@ -130,6 +154,7 @@ public class MainActivity extends AppCompatActivity
         private final List<Fragment> mFragmentList = new ArrayList<>();
 
         private final List<String> mFragmentTitleList = new ArrayList<>();
+
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
@@ -155,6 +180,7 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
     private void setupToolbar() {
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);

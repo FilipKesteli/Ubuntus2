@@ -2,12 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:id="@+id/action_add_favourite"
-        android:orderInCategory="100"
-        android:title="Add to favourite" />
-
-    <item
-        android:id="@+id/action_play_next"
+        android:id="@+id/action_nova_ponuda"
         android:orderInCategory="101"
-        android:title="Play next" />
+        android:title="Nova ponuda" />
+    <item
+        android:id="@+id/action_dodaj_u_favorite"
+        android:orderInCategory="100"
+        android:title="Dodaj u favorite" />
 </menu>
