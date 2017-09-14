@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,9 +27,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.kesteli.filip.ubuntus2.R;
+import com.kesteli.filip.ubuntus2.clanovi.Clan;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.Album;
 
 import java.util.ArrayList;
@@ -63,6 +69,7 @@ public class FizikaFragment extends Fragment {
 
         initViews(view);
         setupFirebase();
+        firebaseQuery();
         setupListeners();
         setupRecyclerView(view);
 
@@ -263,49 +270,43 @@ public class FizikaFragment extends Fragment {
     /*
      *********************************************Firebase******************************************
      */
-    /*private void addToFirebase() {
-        childDinosaurs = databaseReference.child("Dinosaurs");
 
-        DatabaseReference childLambeosaurus = childDinosaurs.child("Lambeosaurus");
-        DatabaseReference childStegosaurus = childDinosaurs.child("Stegosaurus");
-        DatabaseReference childTiranosaurus = childDinosaurs.child("Tiranosaurus");
+    /**
+     * Poredaj po weight-u - najveca tezina 3200
+     */
+    private void firebaseQuery() {
+        childClanovi = databaseReference.child("Clanovi");
+//        childClan = childClanovi.child(user.getUid());
+        Query query = childClanovi.orderByChild("fizika").startAt(1);
 
-        childLambeosaurus.child("height").setValue(2.1);
-        childLambeosaurus.child("length").setValue(12.5);
-        childLambeosaurus.child("weight").setValue(5000);
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Clan clan = dataSnapshot.getValue(Clan.class);
+                Log.d("a6", dataSnapshot.getKey() + " " + clan.getIme() + " was " + clan.getFizika() + " meters tall");
+            }
 
-        childStegosaurus.child("height").setValue(4);
-        childStegosaurus.child("length").setValue(9);
-        childStegosaurus.child("weight").setValue(2500);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-        childTiranosaurus.child("height").setValue(3.6);
-        childTiranosaurus.child("length").setValue(7.4);
-        childTiranosaurus.child("weight").setValue(3000);
+            }
 
-        childTimovi = databaseReference.child("Timovi");
-        childClanovi = childTimovi.child("Tim1865").child("Clanovi");
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-        childTimovi.child("Tim1865").child("motivacija").setValue(10);
+            }
 
-        DatabaseReference childClan1 = childClanovi.child("Clan1Ivo");
-        DatabaseReference childClan2 = childClanovi.child("Clan2Pero");
-        DatabaseReference childClan3 = childClanovi.child("Clan3Bato");
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-        godine = Integer.parseInt(etGodine.getText().toString());
-        Log.d("s1", "" + godine);
+            }
 
-        childClan1.child("ime").setValue("Ivo");
-        childClan1.child("prezime").setValue("Salic");
-        childClan1.child("godine").setValue(godine);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        childClan2.child("ime").setValue("Pero");
-        childClan2.child("prezime").setValue("Ivic");
-        childClan2.child("godine").setValue(2500);
-
-        childClan3.child("ime").setValue("Bato");
-        childClan3.child("prezime").setValue("Peric");
-        childClan3.child("godine").setValue(3000);
-    }*/
+            }
+        });
+    }
 }
 
 

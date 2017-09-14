@@ -38,6 +38,7 @@ public class UbuntusFragment extends Fragment {
 
     private void initViews(View view) {
         smileRating = (SmileRating) view.findViewById(R.id.smileyRating);
+        smileRating.setSelectedSmile(SmileRating.GREAT, true);
     }
 
     boolean flagUkljuci = true; //flag tako da covjek samo jednom moze

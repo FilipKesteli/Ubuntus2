@@ -95,6 +95,11 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/sign_up_button"
                 style="?android:textAppearanceSmall"

@@ -1,8 +1,8 @@
 package com.kesteli.filip.ubuntus2;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,8 +24,13 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.hsalf.smilerating.SmileRating;
 import com.kesteli.filip.ubuntus2.biznis_plan.DonacijaActivity;
 import com.kesteli.filip.ubuntus2.biznis_plan.QuantiActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.FavoritiActivity;
@@ -33,7 +38,6 @@ import com.kesteli.filip.ubuntus2.clanovi.statusi.PonudeActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PotraznjeActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PovijestActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.PrihvacenoActivity;
-import com.kesteli.filip.ubuntus2.login.LoginActivity;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.FavoritiFragment;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.PonudeFragment;
 import com.kesteli.filip.ubuntus2.pocetna_stranica.PotraznjeFragment;
@@ -78,6 +82,7 @@ public class MainActivity extends AppCompatActivity
 
         setupFirebase();
         addToFirebase();
+
         initViews();
         setupToolbar();
         setupHamburgerIcon();
@@ -197,25 +202,6 @@ public class MainActivity extends AppCompatActivity
     private void setupNavigationView() {
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-    /*private void setupAuthenticationFirebase() {
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
-                }
-            }
-        };
-
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
-    }*/
 
     private void setupListeners() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabVrstePosla);

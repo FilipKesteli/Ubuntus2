@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,14 +31,18 @@ import com.kesteli.filip.ubuntus2.MainActivity;
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.clanovi.Clan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Registracija usera
  */
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText etInputEmail, etInputPassword, etIme, etPrezime;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
+    private Spinner spinner;
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
@@ -55,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         setupFirebase();
         initViews();
         setupListeners();
+        setupSpinner();
     }
 
     private void setupFirebase() {
@@ -74,6 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
         etPrezime = (EditText) findViewById(R.id.etPrezime);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+        spinner = (Spinner) findViewById(R.id.spinner);
     }
 
     private void setupListeners() {
@@ -115,8 +124,6 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-//                addToFirebase();
-
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
@@ -141,43 +148,57 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    private void setupSpinner() {
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Fizika");
+        categories.add("Matematika");
+        categories.add("Kemija");
+        categories.add("Android Instrukcije");
+        categories.add("Web Instrucije");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
 
-    private void firebaseQueryUpdateRootClan() {
-        Query queryRefUpdateRootClan = childClanovi.orderByChild("prezime");
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+        // Showing selected spinner item
 
-        queryRefUpdateRootClan.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Clan clan = dataSnapshot.getValue(Clan.class);
-                Log.d("a3", dataSnapshot.getKey() + " " + clan.getIme() + " " + clan.getPrezime() + " " + clan.getGodine());
-            }
+        if (item.equals("Fizika")) {
+            //TODO: Staviti u sharedpreferences string "fizika"
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
 
-            }
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }
+
+
+
+
+
 
 
