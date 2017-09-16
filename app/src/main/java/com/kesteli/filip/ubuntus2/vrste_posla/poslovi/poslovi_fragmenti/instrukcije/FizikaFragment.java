@@ -36,6 +36,7 @@ import com.google.firebase.database.Query;
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.clanovi.Clan;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.Album;
+import com.kesteli.filip.ubuntus2.ugovor.UgovorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -231,10 +232,13 @@ public class FizikaFragment extends Fragment {
                         composeEmail(new String[] {"sasa@gmail.com"}, "Tema");
                         return true;
                     case R.id.action_dodaj_u_favorite:
+                        Intent intent = new Intent(getActivity(), UgovorActivity.class);
+                        startActivity(intent);
                         /*childClanovi = databaseReference.child("Clanovi");
                         childClan = childClanovi.child(user.getUid());
                         childClan.child("favoriti").setValue(123);*/
                         //TODO Sloziti to da se zna vrijednost iz neke liste, pa to dohvatiti i obraditi
+                        //TODO Sloziti Shared Preferences
                         return true;
                     default:
                 }

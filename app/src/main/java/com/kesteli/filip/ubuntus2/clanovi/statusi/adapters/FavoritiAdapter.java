@@ -72,8 +72,8 @@ public class FavoritiAdapter extends RecyclerView.Adapter<FavoritiAdapter.MyView
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
         }
-
     }
+
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
         public MyMenuItemClickListener() {
