@@ -79,6 +79,7 @@ public class UbuntusFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences(POJOLogin.KEY_MOJ_LOGIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
 
+    //TODO: Mozda staviti kakav boolean flag!
     private void addToFirebase() {
         if (user != null) {
             String idClan2 = user.getUid();

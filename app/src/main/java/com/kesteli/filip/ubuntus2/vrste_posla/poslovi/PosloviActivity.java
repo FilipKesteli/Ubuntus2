@@ -60,10 +60,6 @@ public class PosloviActivity extends AppCompatActivity {
         setupListeners();
     }
 
-    private void setupListeners() {
-
-    }
-
     private void setupFirebase() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         //get firebase auth instance
@@ -139,8 +135,8 @@ public class PosloviActivity extends AppCompatActivity {
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
 
+        private final List<String> mFragmentTitleList = new ArrayList<>();
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
@@ -164,5 +160,10 @@ public class PosloviActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
+    }
+
+    private void setupListeners() {
+
     }
 }

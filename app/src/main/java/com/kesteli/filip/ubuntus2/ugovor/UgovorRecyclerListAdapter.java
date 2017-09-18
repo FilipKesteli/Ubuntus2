@@ -108,8 +108,8 @@ public class UgovorRecyclerListAdapter extends RecyclerView.Adapter<UgovorRecycl
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.text);
-            handleView = (ImageView) itemView.findViewById(R.id.handle);
+            textView = (TextView) itemView.findViewById(R.id.title);
+            handleView = (ImageView) itemView.findViewById(R.id.ivDetaljiPosla);
         }
 
         @Override

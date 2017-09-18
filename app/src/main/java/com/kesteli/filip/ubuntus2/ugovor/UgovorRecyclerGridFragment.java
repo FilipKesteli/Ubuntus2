@@ -25,6 +25,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.ugovor.helper.OnStartDragListener;
@@ -35,6 +38,9 @@ import com.kesteli.filip.ubuntus2.ugovor.helper.SimpleItemTouchHelperCallback;
  */
 public class UgovorRecyclerGridFragment extends Fragment implements OnStartDragListener {
 
+    private ImageView ivDetaljiPosla;
+    private FrameLayout flItem;
+    private TextView tvNazivPosla;
     private ItemTouchHelper mItemTouchHelper;
 
     public UgovorRecyclerGridFragment() {
@@ -50,6 +56,12 @@ public class UgovorRecyclerGridFragment extends Fragment implements OnStartDragL
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupRecyclerView(view);
+        initViews(view);
+        setupListeners();
+    }
+
+    private void setupRecyclerView(View view) {
         final UgovorRecyclerListAdapter adapter = new UgovorRecyclerListAdapter(getActivity(), this);
 
         RecyclerView recyclerView = (RecyclerView) view;
@@ -65,8 +77,23 @@ public class UgovorRecyclerGridFragment extends Fragment implements OnStartDragL
         mItemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
+    private void initViews(View view) {
+        ivDetaljiPosla = (ImageView) view.findViewById(R.id.ivDetaljiPosla);
+        tvNazivPosla = (TextView) view.findViewById(R.id.title);
+        flItem = (FrameLayout) view.findViewById(R.id.flItem);
+    }
+
+    private void setupListeners() {
+
+    }
+
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
     }
 }
+
+
+
+
+

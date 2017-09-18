@@ -1,11 +1,8 @@
 package com.kesteli.filip.ubuntus2.vrste_posla.poslovi.poslovi_fragmenti.instrukcije;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,8 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.kesteli.filip.ubuntus2.R;
-import com.kesteli.filip.ubuntus2.clanovi.Clan;
 import com.kesteli.filip.ubuntus2.clanovi.Clan2;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.Album;
 import com.kesteli.filip.ubuntus2.ugovor.UgovorActivity;
@@ -58,6 +54,17 @@ public class FizikaFragment extends Fragment {
 
     private Context mContext;
     private List<Album> albumList;
+    private ProgressBar progressBar;
+    private List<Clan2> clan2FizikaList = new ArrayList<>();
+
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
+
+    private GridLayoutManager gridLayoutManager; //kartice u mreži
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public FizikaFragment() {
         // Required empty public constructor
@@ -71,7 +78,6 @@ public class FizikaFragment extends Fragment {
 
         initViews(view);
         setupFirebase();
-        firebaseQuery();
         setupListeners();
         setupRecyclerView(view);
 
@@ -80,6 +86,7 @@ public class FizikaFragment extends Fragment {
 
     private void initViews(View view) {
         toolbar = (Toolbar) view.findViewById(R.id.toolbarPoslovi);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
     private void setupFirebase() {
@@ -93,17 +100,6 @@ public class FizikaFragment extends Fragment {
     private void setupListeners() {
 
     }
-
-
-    /**
-     * *******************************RECYCLER VIEW**********************************************
-     */
-
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
-
-    private GridLayoutManager gridLayoutManager; //kartice u mreži
 
     private void setupRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_fizika);
@@ -140,6 +136,13 @@ public class FizikaFragment extends Fragment {
                 R.drawable.pic_gandalf,
         };
 
+        firebaseQuery();
+
+        /*for (Clan2 clan2Fizika : clan2FizikaList) {
+            Album album = new Album(clan2Fizika.getIme() + " " + clan2Fizika.getPrezime(), clan2Fizika.getInstrukcijeMap().get("Fizika"), covers[0]);
+            albumList.add(album);
+        }*/
+
         Album a = new Album("frodo", 13, covers[0]);
         albumList.add(a);
 
@@ -164,8 +167,76 @@ public class FizikaFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    /*
+     *********************************************Firebase******************************************
+     */
+    private int count = 0;
+
+    /*
+     * TODO Staviti sve fizika >= 1 clan2-ove u jednu listu - spremiti u privatnu listu
+     * TODO Uzeti sve clanove iz clan2FizikaList (svima staviti istu sliku) - foreach - sloziti toliko albuma
+     * Dodaje sve clanove u jednu listu - update root zbog real time database-a
+     * TODO Problem kasnjenja u dohvacanju podataka!! - treba mi lokalna baza s minimalno podataka!
+     * I have done it in quite simple way. I let an int count and then every time when it comes inside the function ,
+     * i increment it and check it whether it is equals to the total no of childs.
+     * If it's equal then there you can stop the progress bar
+     */
+    private void firebaseQuery() {
+        progressBar.setVisibility(View.VISIBLE);
+        childClanovi2 = databaseReference.child("Clanovi2");
+        Query query = childClanovi2.orderByChild("ime");
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                count++;
+                Clan2 clan2 = dataSnapshot.getValue(Clan2.class);
+                if (clan2 != null) {
+                    if (clan2.getInstrukcijeMap().get("fizika") >= 1) {
+                        Log.d("a6", dataSnapshot.getKey() + " " + clan2.getIme() + " "
+                                + clan2.getPrezime() + " " + clan2.geteMail() + " "
+                                + clan2.getInstrukcijeMap().get("fizika"));
+                        clan2FizikaList.add(clan2);
+                        Log.d("a7", "odlicno, fizika" + clan2FizikaList.get(0).getIme());
+                        Album album = new Album(
+                                clan2.getIme() + " " + clan2.getPrezime(),
+                                clan2.getInstrukcijeMap().get("fizika"),
+                                R.drawable.pic_frodo);
+                        albumList.add(album);
+                        Log.d("a8", "lala " + albumList.get(albumList.size() - 1).getNumOfSongs());
+                        adapter.notifyItemInserted(albumList.size() - 1);
+                        if (count >= dataSnapshot.getChildrenCount()) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    /**
+     * *******************************RECYCLER VIEW**********************************************
+     */
 
     public class FizikaAdapter extends RecyclerView.Adapter<FizikaAdapter.ViewHolder> {
 
@@ -180,23 +251,24 @@ public class FizikaFragment extends Fragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_album, parent, false);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.card_album, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             Album album = albumList.get(position);
-            holder.title.setText(album.getName());
-            holder.count.setText(album.getNumOfSongs() + " songs");
+            holder.tvIme.setText(album.getName());
+            holder.tvBrojUspjesnihTransakcija.setText(album.getNumOfSongs() + " uspješnih transakcija");
 
             // loading album cover using Glide library
             Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
 
-            holder.overflow.setOnClickListener(new View.OnClickListener() {
+            holder.ivUgovor.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showPopupMenu(holder.overflow);
+                    showPopupMenu(holder.ivUgovor);
                 }
             });
         }
@@ -229,10 +301,10 @@ public class FizikaFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.action_nova_ponuda:
+                    case R.id.action_posalji_mail:
                         composeEmail(new String[]{"sasa@gmail.com"}, "Tema");
                         return true;
-                    case R.id.action_dodaj_u_favorite:
+                    case R.id.action_sklopi_ugovor:
                         Intent intent = new Intent(getActivity(), UgovorActivity.class);
                         startActivity(intent);
                         /*childClanovi = databaseReference.child("Clanovi");
@@ -258,66 +330,20 @@ public class FizikaFragment extends Fragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView title, count;
-            public ImageView thumbnail, overflow;
+            public TextView tvIme, tvBrojUspjesnihTransakcija;
+            public ImageView thumbnail, ivUgovor;
 
             public ViewHolder(View view) {
                 super(view);
-                title = (TextView) view.findViewById(R.id.title);
-                count = (TextView) view.findViewById(R.id.count);
+                tvIme = (TextView) view.findViewById(R.id.tvIme);
+                tvBrojUspjesnihTransakcija = (TextView) view.findViewById(R.id.tvBrojUspjesnihTransakcija);
                 thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-                overflow = (ImageView) view.findViewById(R.id.overflow);
+                ivUgovor = (ImageView) view.findViewById(R.id.ivUgovor);
             }
         }
     }
-
-
-    /*
-     *********************************************Firebase******************************************
-     */
-
-    /**
-     * Dodaje sve clanove u jednu listu
-     */
-    private void firebaseQuery() {
-        childClanovi2 = databaseReference.child("Clanovi2");
-        Query query = childClanovi2.orderByChild("ime");
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Clan2 clan2 = dataSnapshot.getValue(Clan2.class);
-                Log.d("a6", dataSnapshot.getKey() + " " + clan2.getIme() + " "
-                        + clan2.getPrezime() + " " + clan2.geteMail() + " "
-                        + clan2.getInstrukcijeMap().get("fizika"));
-                if (clan2.getInstrukcijeMap().get("fizika") >= 1) {
-                    Log.d("a7", "odlicno, fizika");
-                } else {
-                    Log.d("a7", "treba popraviti nekj");
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }
+
 
 
 

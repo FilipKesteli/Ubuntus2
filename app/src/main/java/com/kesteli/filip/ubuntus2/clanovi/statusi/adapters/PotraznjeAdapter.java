@@ -67,10 +67,10 @@ public class PotraznjeAdapter extends RecyclerView.Adapter<PotraznjeAdapter.MyVi
 
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.count);
+            title = (TextView) view.findViewById(R.id.tvIme);
+            count = (TextView) view.findViewById(R.id.tvBrojUspjesnihTransakcija);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
+            overflow = (ImageView) view.findViewById(R.id.ivUgovor);
         }
 
     }
@@ -83,10 +83,10 @@ public class PotraznjeAdapter extends RecyclerView.Adapter<PotraznjeAdapter.MyVi
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.action_dodaj_u_favorite:
+                case R.id.action_sklopi_ugovor:
                     Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
                     return true;
-                case R.id.action_nova_ponuda:
+                case R.id.action_posalji_mail:
                     Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
                     return true;
                 default:

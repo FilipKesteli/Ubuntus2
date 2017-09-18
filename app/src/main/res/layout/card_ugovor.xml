@@ -14,15 +14,16 @@
   ~ limitations under the License.
   -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item"
+    android:id="@+id/flItem"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeight"
+    android:backgroundTint="@color/red_100"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground">
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -30,7 +31,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
-        android:id="@+id/handle"
+        android:id="@+id/ivDetaljiPosla"
         android:layout_width="?listPreferredItemHeight"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|right"

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -113,8 +114,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                 String email = etInputEmail.getText().toString().trim();
                 String password = etInputPassword.getText().toString().trim();
 
-//                addToFirebase();
-
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -197,11 +196,15 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Takoder spinner metoda
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }
+
 
 
 
