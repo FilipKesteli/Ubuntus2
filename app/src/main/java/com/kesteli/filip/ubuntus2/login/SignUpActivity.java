@@ -1,12 +1,12 @@
 package com.kesteli.filip.ubuntus2.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,18 +21,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.kesteli.filip.ubuntus2.MainActivity;
 import com.kesteli.filip.ubuntus2.R;
-import com.kesteli.filip.ubuntus2.clanovi.Clan;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Registracija usera
@@ -48,10 +45,11 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     private FirebaseAuth auth;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
-    private DatabaseReference childClanovi;
-    private DatabaseReference childClan;
+    private DatabaseReference childClanovi2;
+    private DatabaseReference childClan2;
 
     private SharedPreferences sharedPreferences;
+    private Map<String, Integer> instrukcijeMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +102,18 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ime = etIme.getText().toString().trim();
-                String prezime = etPrezime.getText().toString().trim();
+                sharedPreferences = getSharedPreferences(POJOLogin.KEY_MOJ_LOGIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                String ime = etIme.getText().toString();
+                String prezime = etPrezime.getText().toString();
+                editor.putString(POJOLogin.KEY_IME, ime);
+                editor.putString(POJOLogin.KEY_PREZIME, prezime);
+                editor.commit();
+
                 String email = etInputEmail.getText().toString().trim();
                 String password = etInputPassword.getText().toString().trim();
+
+//                addToFirebase();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -176,17 +182,18 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         progressBar.setVisibility(View.GONE);
     }
 
+    /**
+     * Metoda koja je zapravo listener za spinner
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
         // Showing selected spinner item
-
-        if (item.equals("Fizika")) {
-            //TODO: Staviti u sharedpreferences string "fizika"
-
-        }
-
+        sharedPreferences = getSharedPreferences(POJOLogin.KEY_MOJ_LOGIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(POJOLogin.KEY_INSTRUKCIJE, item);
+        editor.commit();
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
 

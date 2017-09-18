@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.kesteli.filip.ubuntus2.R;
 import com.kesteli.filip.ubuntus2.clanovi.Clan;
+import com.kesteli.filip.ubuntus2.clanovi.Clan2;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.Album;
 import com.kesteli.filip.ubuntus2.ugovor.UgovorActivity;
 
@@ -50,8 +51,8 @@ public class FizikaFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
-    private DatabaseReference childClanovi;
-    private DatabaseReference childClan;
+    private DatabaseReference childClanovi2;
+    private DatabaseReference childClan2;
 
     private Toolbar toolbar;
 
@@ -229,7 +230,7 @@ public class FizikaFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.action_nova_ponuda:
-                        composeEmail(new String[] {"sasa@gmail.com"}, "Tema");
+                        composeEmail(new String[]{"sasa@gmail.com"}, "Tema");
                         return true;
                     case R.id.action_dodaj_u_favorite:
                         Intent intent = new Intent(getActivity(), UgovorActivity.class);
@@ -276,18 +277,23 @@ public class FizikaFragment extends Fragment {
      */
 
     /**
-     * Poredaj po weight-u - najveca tezina 3200
+     * Dodaje sve clanove u jednu listu
      */
     private void firebaseQuery() {
-        childClanovi = databaseReference.child("Clanovi");
-//        childClan = childClanovi.child(user.getUid());
-        Query query = childClanovi.orderByChild("fizika").startAt(1);
-
+        childClanovi2 = databaseReference.child("Clanovi2");
+        Query query = childClanovi2.orderByChild("ime");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Clan clan = dataSnapshot.getValue(Clan.class);
-                Log.d("a6", dataSnapshot.getKey() + " " + clan.getIme() + " was " + clan.getFizika() + " meters tall");
+                Clan2 clan2 = dataSnapshot.getValue(Clan2.class);
+                Log.d("a6", dataSnapshot.getKey() + " " + clan2.getIme() + " "
+                        + clan2.getPrezime() + " " + clan2.geteMail() + " "
+                        + clan2.getInstrukcijeMap().get("fizika"));
+                if (clan2.getInstrukcijeMap().get("fizika") >= 1) {
+                    Log.d("a7", "odlicno, fizika");
+                } else {
+                    Log.d("a7", "treba popraviti nekj");
+                }
             }
 
             @Override

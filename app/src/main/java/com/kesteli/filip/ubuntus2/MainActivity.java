@@ -1,7 +1,6 @@
 package com.kesteli.filip.ubuntus2;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -24,13 +23,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.hsalf.smilerating.SmileRating;
 import com.kesteli.filip.ubuntus2.biznis_plan.DonacijaActivity;
 import com.kesteli.filip.ubuntus2.biznis_plan.QuantiActivity;
 import com.kesteli.filip.ubuntus2.clanovi.statusi.FavoritiActivity;
@@ -58,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference databaseReference;
     private DatabaseReference childClanovi;
     private DatabaseReference childClan;
+
 
     private ProgressBar progressBar;
     private Toolbar toolbar;
